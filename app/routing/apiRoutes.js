@@ -3,28 +3,35 @@ const path = require('path');
 const router = express.Router();
 const employeeList = require('../data/employees')
 
-
-//should be in html route
-router.get('/survey', function(req, res){
-    console.log(__dirname)
-    res.sendFile(path.join(__dirname, "/../public/survey.html"));
+router.post("/api/employees", function(req, res){
+     console.log(req.body);
+    employeeList.push(req.body);
+    //sorting algorithm
+    res.json(employeeList);
+    
 });
 
-router.get('/data/employees', function(req,res){
-    res.sendFile(path.join(__dirname, "/../data/employees.js"));
-})
+//get function for api/employees
+router.get("/api/employees", function(req, res){
+    res.json(employeeList);
 
-router.get('/', function(req, res){
-    console.log(__dirname)
-    res.sendFile(path.join(__dirname, "/../public/home.html"));
 });
-
-router.post("/data/employees", function(req, res){
-    console.log(req.body);
-    res.json(req.body);
-    res.send(req.body);
-});
-
-//push data to 
 
 module.exports = router;
+
+
+    
+    
+// for(let i = 0; i < employeeList.length; i++){
+// 	let scores = employeeList[i].scores
+// 	checkScores(scores);
+// }
+
+// function checkScores(scoreArray){
+//     let sum = '';
+// for(let i = 0; i < scoreArray.length; i++){
+//     console.log(+scoreArray[i]);
+//     sum +=sum + scoreArray[i];
+// }
+// console.log(sum);
+// }
